@@ -53,7 +53,8 @@ def wpa_status():
 	#return subprocess.check_output(['sudo', 'wpa_cli', 'status']).strip()
 	#return 'Other info here'
 	iwconfig = subprocess.check_output("iwconfig wlan0 | grep ESSID | cut -d: -f2",shell=True)
-	out = "SSID: " + iwconfig.replace("\"","") + "Local IP: " + socket.gethostbyname(socket.getfqdn())
+	ip = subprocess.check_output("ifconfig wlan0 | grep inet | cut -d ' ' -f 10",shell=True)
+	out = "SSID: " + iwconfig.replace("\"","") + "Local IP: " + ip
 	return out
 	
 
